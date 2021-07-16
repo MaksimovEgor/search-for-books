@@ -38,16 +38,17 @@ font-size: 15px;
 
 const  MovieComponent = (props) => {
 
-    const {Title, Year, Type, Poster, imdbID} = props.movie;
+    const {volumeInfo, id} = props.book;
 
     return (
-        <MovieContainer onClick={() => props.onMovieSelect(imdbID)}>
+        <MovieContainer onClick={() => props.onBookSelect(id)}>
             <CoverImage
-                src={Poster}/>
-            <MovieName>{Title}</MovieName>
+                src={volumeInfo?.imageLinks?.thumbnail}/>
+            <MovieName>{volumeInfo?.title}</MovieName>
             <InfoColumn>
-                <MovieInfo>Year: {Year}</MovieInfo>
-                <MovieInfo>Type: {Type}</MovieInfo>
+
+                <MovieInfo>Category: {volumeInfo?.categories} </MovieInfo>
+                <MovieInfo>Author: {volumeInfo?.authors}</MovieInfo>
             </InfoColumn>
         </MovieContainer>
     )

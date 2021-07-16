@@ -57,18 +57,19 @@ const Close = styled.span`
 
 const MovieInfoComponent = (props) => {
     const [movieInfo, setMovieInfo] = useState();
-    const {selectedMovie} = props;
+    const {selectedBook} = props;
     useEffect(() => {
         axios
-            .get(`https://www.omdbapi.com/?i=${selectedMovie}&apikey=${API_KEY}`)
-            .then((response) => setMovieInfo(response.data));
-    }, [selectedMovie])
+            /*.get(`https://www.omdbapi.com/?i=${selectedMovie}&apikey=${API_KEY}`)*/
+            .get(`https://www.googleapis.com/books/v1/volumes?q=${selectedBook}:keyes&key=${API_KEY}`)
+            .then((response) => setMovieInfo(response.data.items));
+    }, [selectedBook])
 
     return (
         <Container>
             {movieInfo ?
                 <>
-                    <CoverImage src={movieInfo?.Poster}/>
+                    <CoverImage src={selectedBook.data.volumeInfo?.imageLinks?.thumbnail}/>
                     <InfoColumn>
                         <MovieName>
                             Movie: {movieInfo?.Title}
